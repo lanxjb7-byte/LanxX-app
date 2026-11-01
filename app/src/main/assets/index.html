@@ -1,0 +1,261 @@
+<!DOCTYPE html>  <html lang="id">  
+<head>  
+<meta charset="UTF-8">  
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">  
+<title>LanxX Control Panel</title>  
+<style>  
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&display=swap');  *{box-sizing:border-box;margin:0;padding:0}
+body{
+background:#080808;
+color:white;
+font-family:Orbitron,sans-serif;
+min-height:100vh;
+overflow-x:hidden;
+}
+body:before{
+content:"";
+position:fixed;inset:0;
+background:radial-gradient(ellipse at center,#350b12 0%,#100609 45%,#050505 100%);
+z-index:-2;
+}
+body:after{
+content:"";position:fixed;inset:0;
+background-image:linear-gradient(#ffffff08 1px,transparent 1px),
+linear-gradient(90deg,#ffffff08 1px,transparent 1px);
+background-size:35px 35px;
+z-index:-1;
+}
+
+/* INTRO */
+#intro{
+position:fixed;inset:0;z-index:10;
+background:#080808;
+display:flex;align-items:center;justify-content:center;
+flex-direction:column;
+animation:introExit 1s ease 2.8s forwards;
+}
+.intro-logo{
+font-size:clamp(48px,13vw,85px);
+font-weight:900;
+color:#ff263f;
+text-shadow:0 0 15px #ff1738,0 0 45px #ff1738;
+animation:drop 1.4s cubic-bezier(.15,.8,.3,1) both;
+}
+.intro-line{
+width:0;height:3px;background:#ff263f;
+box-shadow:0 0 15px red;
+animation:line 1s ease 1s forwards;
+}
+.intro-text{
+margin-top:18px;font-size:10px;
+letter-spacing:5px;color:#aaa;
+animation:fade .8s ease 1.4s both;
+}
+@keyframes drop{
+from{transform:translateY(-100vh);opacity:0}
+to{transform:translateY(0);opacity:1}
+}
+@keyframes line{to{width:210px}}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+@keyframes introExit{
+to{opacity:0;visibility:hidden;pointer-events:none}
+}
+
+/* DASHBOARD */
+#app{
+max-width:650px;margin:auto;
+padding:18px;
+opacity:0;
+animation:show .8s ease 3s forwards;
+}
+@keyframes show{to{opacity:1}}
+
+header{
+display:flex;justify-content:space-between;
+align-items:center;gap:10px;
+margin-bottom:35px;
+}
+.brand{
+font-size:22px;font-weight:900;
+color:#ff3049;
+text-shadow:0 0 15px #ff1738;
+}
+.dev-link{
+text-decoration:none;
+color:white;background:#a80019;
+border:1px solid #ff4055;
+padding:11px 12px;border-radius:9px;
+font-size:9px;font-weight:bold;
+box-shadow:0 0 15px #ff173833;
+}
+.dev-link:active{transform:scale(.95)}
+
+.welcome{margin-bottom:25px}
+.welcome small{color:#ff4257;font-size:10px;letter-spacing:3px}
+.welcome h1{font-size:25px;margin-top:12px}
+.welcome p{font-size:10px;color:#888;margin-top:9px}
+
+.status{
+display:flex;align-items:center;justify-content:space-between;
+background:#151013;border:1px solid #54202b;
+border-radius:13px;padding:17px;
+margin-bottom:22px;
+}
+.status span{font-size:10px;color:#aaa}
+.status strong{color:#ff4055;font-size:12px}
+.dot{
+display:inline-block;width:8px;height:8px;
+background:#ff3049;border-radius:50%;
+margin-right:7px;box-shadow:0 0 10px red;
+}
+
+.section-title{
+font-size:12px;letter-spacing:2px;
+margin-bottom:15px;
+}
+.features{display:grid;gap:13px}
+.feature{
+background:linear-gradient(120deg,#191114,#100e10);
+border:1px solid #392027;
+border-radius:14px;
+padding:17px;
+display:flex;align-items:center;
+justify-content:space-between;
+transition:.3s;
+}
+.feature.active{
+border-color:#ff3049;
+box-shadow:0 0 16px #ff304922;
+}
+.feature-info{display:flex;align-items:center;gap:13px}
+.feature-icon{
+width:43px;height:43px;border-radius:11px;
+background:#321019;color:#ff4055;
+display:flex;align-items:center;
+justify-content:center;font-size:19px;
+}
+.feature h3{font-size:11px;margin-bottom:6px}
+.feature p{font-size:8px;color:#777}
+.toggle{
+width:53px;height:28px;
+background:#333;border-radius:30px;
+border:1px solid #555;position:relative;
+cursor:pointer;transition:.3s;
+flex-shrink:0;
+}
+.toggle:before{
+content:"";position:absolute;
+width:20px;height:20px;left:3px;top:3px;
+background:white;border-radius:50%;
+transition:.3s;
+}
+.toggle.on{background:#d30b2a;border-color:#ff4055}
+.toggle.on:before{left:27px;box-shadow:0 0 10px red}
+
+.counter{
+display:flex;justify-content:space-between;
+margin-top:22px;padding:16px;
+border:1px solid #392027;border-radius:12px;
+background:#130e10;
+font-size:10px;color:#aaa;
+}
+.counter strong{color:#ff4055}
+
+footer{
+text-align:center;color:#555;
+font-size:9px;letter-spacing:2px;
+margin:35px 0 15px;
+}
+.toast{
+position:fixed;bottom:25px;left:50%;
+transform:translate(-50%,100px);
+background:#b40020;color:white;
+padding:13px 20px;border-radius:10px;
+font-size:10px;transition:.3s;z-index:20;
+box-shadow:0 0 20px #ff173855;
+white-space:nowrap;
+}
+.toast.show{transform:translate(-50%,0)}
+</style>
+
+</head>  
+<body>  <div id="intro">  
+ <div class="intro-logo">LanxX</div>  
+ <div class="intro-line"></div>  
+ <div class="intro-text">CONTROL PANEL</div>  
+</div>  <main id="app">  <header>  
+ <div class="brand">LanxX</div>  
+ <a class="dev-link"  
+ href="https://whatsapp.com/channel/0029Vb8aNptGpLHX25dq3j2x"  
+ target="_blank">LINK SALURAN DEV ↗</a>  
+</header>  <section class="welcome">  
+ <small>WELCOME TO USER</small>  
+ <h1>CONTROL PANEL</h1>  
+ <p>Manage your features with LanxX.</p>  
+</section>  <div class="status">  
+ <span>SYSTEM</span>  
+ <strong><i class="dot"></i><span id="systemStatus">ON</span></strong>  
+</div>  <div class="section-title">◆ AVAILABLE FEATURES</div>  <div class="features">   <div class="feature">  
+  <div class="feature-info">  
+   <div class="feature-icon">⚡</div>  
+   <div><h3>FEATURE 1</h3><p>PEFORMA OPTIMAZE</p></div>  
+  </div>  
+  <button class="toggle" aria-label="Toggle fitur 1" onclick="toggleFeature(this,1)"></button>  
+ </div>   <div class="feature">  
+  <div class="feature-info">  
+   <div class="feature-icon">◈</div>  
+   <div><h3>FEATURE 2</h3><p>DRAG HS 20%</p></div>  
+  </div>  
+  <button class="toggle" aria-label="Toggle fitur 2" onclick="toggleFeature(this,2)"></button>  
+ </div>   <div class="feature">  
+  <div class="feature-info">  
+   <div class="feature-icon">◆</div>  
+   <div><h3>FEATURE 3</h3><p>AIMNING 40%</p></div>  
+  </div>  
+  <button class="toggle" aria-label="Toggle fitur 3" onclick="toggleFeature(this,3)"></button>  
+ </div>   <div class="feature">  
+  <div class="feature-info">  
+   <div class="feature-icon">⌘</div>  
+   <div><h3>FEATURE 4</h3><p>EASY DRAG 10%</p></div>  
+  </div>  
+  <button class="toggle" aria-label="Toggle fitur 4" onclick="toggleFeature(this,4)"></button>  
+ </div>   <div class="feature">  
+  <div class="feature-info">  
+   <div class="feature-icon">◉</div>  
+   <div><h3>FEATURE 5</h3><p>OPTIMAZE FREEFIRETH</p></div>  
+  </div>  
+  <button class="toggle" aria-label="Toggle fitur 5" onclick="toggleFeature(this,5)"></button>  
+ </div>  </div>  <div class="counter">  
+ <span>ACTIVE FEATURES</span>  
+ <strong id="activeCount">0 / 5</strong>  
+</div>  <footer>LanxX CONTROL PANEL • VERSION 1.0</footer>  
+</main>  <div class="toast" id="toast"></div>  <script>  
+let activeFeatures=0;  
+  
+function toggleFeature(button,number){  
+ const card=button.closest('.feature');  
+ const isOn=button.classList.toggle('on');  
+  
+ card.classList.toggle('active',isOn);  
+  
+ activeFeatures += isOn ? 1 : -1;  
+  
+ document.getElementById('activeCount').textContent=  
+ activeFeatures+' / 5';  
+  
+ document.getElementById('systemStatus').textContent=  
+ activeFeatures>0?'SYSTEM ACTIVE':'READY';  
+  
+ showToast('FEATURE '+number+' '+(isOn?'ACTIVATED':'DEACTIVATED'));  
+}  
+  
+let toastTimer;  
+function showToast(message){  
+ const toast=document.getElementById('toast');  
+ toast.textContent=message;  
+ toast.classList.add('show');  
+ clearTimeout(toastTimer);  
+ toastTimer=setTimeout(()=>toast.classList.remove('show'),1800);  
+}  
+</script>  </body>  
+  </html>
